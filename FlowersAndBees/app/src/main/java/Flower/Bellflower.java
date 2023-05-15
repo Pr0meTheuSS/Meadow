@@ -2,8 +2,12 @@ package Flower;
 
 public class Bellflower extends Flower {
 
+    private static int instances = 0;
+
     public Bellflower() {
-        state = PlantState.BLOOMING;
+        instances++;
+
+        state = PlantState.SEEDLING;
         age = 0;
         seedlingTime = 2;
         adultTime = 5;
@@ -17,5 +21,10 @@ public class Bellflower extends Flower {
     public void die() {
         fruit();
         getSpot().removeSpotAgent(this);
+    }
+
+    @Override
+    public String getInfo() {
+        return super.getInfo() + getClass() + " was grown " + instances + "\n";
     }
 }

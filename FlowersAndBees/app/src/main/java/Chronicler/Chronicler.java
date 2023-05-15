@@ -33,6 +33,18 @@ public class Chronicler {
         }
     }
 
+    public void writeChronics(List<Spot> spots, int iteration) { 
+        try {
+            String header = "\n==================iteration: " + iteration + " ========================\n";
+            out.write(header.getBytes());
+            for (var spot: spots) {
+                out.write(spot.getInfo().getBytes());
+            }
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void demote() {
         try {
             out.close();

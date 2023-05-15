@@ -7,18 +7,17 @@ import Meadow.Meadow;
 
 public class App {
     public String getGreeting() {
-        return "Flowers and Bees is run.";
+        return "Flowers and Bees run.";
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        // if (args.length < 2) {
-        //     System.err.println("Wrong count of args - rerun program and give input file name and output file name in cli args");
-        //     return;
-        // }
+        if (args.length < 2) {
+            System.err.println("Wrong count of args - rerun program and give input file name and output file name in cli args");
+            return;
+        }
 
-        Meadow meadow = new Meadow("/home/prometheus/Рабочий стол/FlowersAndBees/app/src/main/resources/config", "data");
-        //Meadow meadow = new Meadow(args[0], args[1]);
+        Meadow meadow = new Meadow(args[0], args[1]);
         meadow.runSimulation();
     }
 }

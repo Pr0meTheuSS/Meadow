@@ -24,7 +24,7 @@ public class Meadow {
         }
 
         // Parse field size configurations.
-        String fieldWidthString = properties.getProperty("FieldWidth");
+        String fieldWidthString = properties.getProperty("FieldWidth"); // = "5"
         String fieldHeightString = properties.getProperty("FieldHeight");
         width = Integer.parseInt(fieldWidthString);
         height = Integer.parseInt(fieldHeightString);
@@ -38,13 +38,12 @@ public class Meadow {
         // sout for debug mode.
         System.out.println("Field size: " + fieldWidthString + " " + fieldHeightString);
 
-
         // Parse the Universe time configurations.
         String lifeTimeString = properties.getProperty("LifeTime");
         String epochTimeString = properties.getProperty("EpochTime");
-
         lifeTimeOfTheUniverse = Integer.parseInt(lifeTimeString);
         logFrequency = Integer.parseInt(epochTimeString);
+
         // sout for debug mode.
         System.out.println("The Universe's time configurations: " + lifeTimeOfTheUniverse + " " + logFrequency);
 
@@ -58,6 +57,7 @@ public class Meadow {
                     String flowerName = flowerParams[0];
                     int flowerPositionX = Integer.parseInt(flowerParams[1]);
                     int flowerPositionY = Integer.parseInt(flowerParams[2]);
+
                     var spot = getSpot(flowerPositionX, flowerPositionY);
                     // Если на этом месте уже что-то расположено
                     if (spot.getAgents().size() != 0) {
@@ -79,7 +79,15 @@ public class Meadow {
                     int hivePositionX = Integer.parseInt(hiveParams[1]);
                     int hivePositionY = Integer.parseInt(hiveParams[2]);
                     var hive = HiveBuilder.create(hiveName);
-                    getSpot(hivePositionX, hivePositionY).addSpotAgent(hive);
+                    var spot = getSpot(hivePositionX, hivePositionY);
+                    // Если на этом месте уже что-то расположено
+                    if (spot.getAgents().size() != 0) {
+                        // Выводим сообщение об ошибке
+                        System.err.println("Collision of implacing in Meadow constructor");
+                        // Переходим к обработке следующего ключа.
+                        continue;
+                    }
+                    spot.addSpotAgent(hive);
                     hive.burnNewGeneration();
                 } else {
                     throw new RuntimeException("Wrong configuration file format in string with Hive");
@@ -92,14 +100,15 @@ public class Meadow {
 
     public void runSimulation() {
         for (int i = 0; i < lifeTimeOfTheUniverse; i++) {
-            runOneEpoch();
+            runEpoch();
             if (i % logFrequency == 0) {
-                chronicler.writeChronics(spots);
+                chronicler.writeChronics(spots, i);
             }
         }
+        chronicler.demote();
     }
 
-    private void runOneEpoch() {
+    private void runEpoch() {
         for (var spot : spots) {
             spot.tick();
         }

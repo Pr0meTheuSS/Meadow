@@ -1,0 +1,9 @@
+FieldWidth=5
+FieldHeight=5
+LifeTime=100
+EpochTime=1
+Hive1=Simplehive|0|0
+Flower1=Bellflower|0|1
+Flower2=Papaver|4|4
+Flower3=Clower|2|3
+

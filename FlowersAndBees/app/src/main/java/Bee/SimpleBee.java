@@ -3,33 +3,15 @@ package Bee;
 import java.util.Random;
 
 import Hive.Hive;
-import meadow.Bee;
 
 public class SimpleBee extends Bee {
-
-    // public SimpleBee(Hive home) {
-    //     this.home = home;
-    //     // Максимальная грузоподъемность.
-    //     honeydewLimit = 20;
-    //     // Текущее количество нектара на пчеле.
-    //     honeydewCurrent = 0;
-    //     // Дальность одной вылазки.
-    //     pathLimit = 6;
-    //     // Количество вылазок за жизнь.
-    //     tripCount = 0;
-    //     // Максимально допустимое количество вылазок за жизнь, потом смерть.
-    //     tripLimit = 5;
-    //     // Начальное состояние при рождении в улье - поиск цветущих.
-    //     state = BeeState.SearchFlower;    
-    // }
-
     public SimpleBee() {
         // Максимальная грузоподъемность.
         honeydewLimit = 20;
         // Текущее количество нектара на пчеле.
         honeydewCurrent = 0;
         // Дальность одной вылазки.
-        pathLimit = 10;
+        pathLimit = 5;
         // Количество вылазок за жизнь.
         tripCount = 0;
         // Максимально допустимое количество вылазок за жизнь, потом смерть.
@@ -56,6 +38,7 @@ public class SimpleBee extends Bee {
         int yDirection = homeY - beeY;
         int xOffset = (xDirection == 0) ? 0 : xDirection / Math.abs(xDirection);
         int yOffset = (yDirection == 0) ? 0 : yDirection / Math.abs(yDirection);
+
         var oldSpot = getSpot();
         oldSpot.removeSpotAgent(this); 
         oldSpot.getNeighbour(xOffset, yOffset).addSpotAgent(this);
@@ -66,7 +49,7 @@ public class SimpleBee extends Bee {
         currentPath++;
         if (currentPath >= pathLimit) {
             state = BeeState.GoHome;
-//            flyHome();
+            flyHome();
             return;
         }
 

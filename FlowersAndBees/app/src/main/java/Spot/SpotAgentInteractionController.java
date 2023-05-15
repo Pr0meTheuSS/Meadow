@@ -1,8 +1,8 @@
 package Spot;
 
+import Bee.Bee;
 import Flower.Flower;
 import Hive.Hive;
-import meadow.Bee;
 
 // Класс отвечает за взаимодействия между
 class SpotAgentInteractionController {
@@ -37,6 +37,6 @@ class SpotAgentInteractionController {
 
     private static void swapPollen(Bee bee, Flower flower) {
         bee.catchPollen(flower);
-//        flower.pollinate(bee);
+        //flower.pollinate(bee);
     }
 }

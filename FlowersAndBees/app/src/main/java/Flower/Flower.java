@@ -1,15 +1,27 @@
 package Flower;
 
+import Bee.Bee;
 import Spot.Spot;
 import Spot.SpotAgent;
-import meadow.Bee;
 
 /**
  * Класс обобщённого цветкового растения
  * @author klimenko
  */
-public abstract class Flower implements SpotAgent {
 
+ public abstract class Flower implements SpotAgent {
+	/*
+	 * Статическое поле для подсчета числа цветков.
+	 */
+	private static int instances = 0;
+
+	public Flower() {
+		instances++;
+	}
+
+	/*
+	 * Функция вывода информации о цветке.
+	 */
 	@Override
     public String getInfo() {
 		return "Flower " + getClass() + " in position (" + rootSpot.getX() + ", " + rootSpot.getY() + ")" 
@@ -37,6 +49,7 @@ public abstract class Flower implements SpotAgent {
         }
 
 		// переход от цветения к плодоношению.
+		// Допустимо переопределить метод fruit() и изменить поведение при плодоношении
         if (state == PlantState.BLOOMING) {
             if (age >= fruitingTime) {
 				fruit();
@@ -75,7 +88,7 @@ public abstract class Flower implements SpotAgent {
 	/**
 	 * В каком состоянии находится.
 	 */
-	public PlantState state;
+	protected PlantState state;
 		
 	/**
 	 * Вырасти.
@@ -104,10 +117,10 @@ public abstract class Flower implements SpotAgent {
 	 * Погибнуть.
 	 */
 	protected void die() {
+		// Посылаем запрос родительскому участку об удалении.
 		getSpot().removeSpotAgent(this);
 	}
 	
-	//Методы взаимодействия с другими агентами.
 	/**
 	 * Отдать накопленный нектар.
 	 * @return число единиц переданного нектара.
@@ -120,7 +133,7 @@ public abstract class Flower implements SpotAgent {
 		return 0;
 	}
 
-		/**
+	/**
 	 * Отдать пыльцу.
 	 * @return число единиц переданной пыльцы. По факту на данном этапе имеет бинарную природу - пыльца либо есть (1)б либо нет (0).
 	 */
@@ -146,16 +159,14 @@ public abstract class Flower implements SpotAgent {
 			}
 		}
  }
-
 	/**
 	 * Текущий тик жизни цветка.
 	*/
 	protected int age;
 
 	/**
-	 * Возраст, в котором растение переходит к определенному состоянию .
+	 * Возраст, в котором растение переходит к определенному состоянию.
 	 * */
-
 	protected int seedlingTime = 1;
 	protected int adultTime;
 	protected int bloomingTime;

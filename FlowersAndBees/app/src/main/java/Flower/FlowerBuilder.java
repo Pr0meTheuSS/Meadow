@@ -5,9 +5,18 @@ public class FlowerBuilder {
         if (flowerTypeName.equals("Bellflower")) {
             return new Bellflower();
         }
-        // Тут надо дописать точно такой же if для других типов цветов.
-        // if (...) {return new  ... ;}
 
-        return null;
+        if (flowerTypeName.equals("Clower")) {
+            return new Clower();
+        }
+        
+        if (flowerTypeName.equals("Papaver")) {
+            return new Papaver();
+        }
+
+        // Тут надо дописать точно такой же if для других типов цветов.
+        // flowerTypeName.equals("yourFlowerType") {return new  yourFlowerType();}
+
+        throw new RuntimeException("This flower type not found: " + flowerTypeName);
     }
 }

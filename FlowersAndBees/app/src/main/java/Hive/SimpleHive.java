@@ -5,21 +5,21 @@ import Bee.SimpleBee;
 public class SimpleHive extends Hive {
 
     public SimpleHive() {
-        currentHoneydewCount = 50;
+        currentHoneydewCount = 10;
         burnNewGenerationFrequency = 10;
     }
 
     public void burnNewGeneration() {
         // Для каждой новой особи пчелы тратим 5 единиц нектара.
         for (int i = 0; i < currentHoneydewCount / 5; i++) {
-        System.out.println("new generation of bees!");
             var newBee = new SimpleBee();
             newBee.setHome(this);
             getSpot().addSpotAgent(newBee);
             burnedBees++;
             currentBees++;
             currentHoneydewCount -= 5;
-            honeydewUsed +=5;
+            honeydewUsed += 5;
+            generationAmount++;
         }
     }
 

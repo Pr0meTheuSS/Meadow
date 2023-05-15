@@ -1,5 +1,7 @@
 package Hive;
 
+import Bee.Bee;
+
 /**
  * Абстракный класс улья
  * @author klimenko
@@ -7,7 +9,6 @@ package Hive;
  */
 
  import Spot.*;
-import meadow.Bee;
 
 public abstract class Hive implements SpotAgent {	
 	/**
@@ -21,8 +22,13 @@ public abstract class Hive implements SpotAgent {
 		}
 	}
 
+
+	/**
+	 *  Получение нектара.
+	 * 
+	 */
 	public void getHoneydew(int newHoneydew) {
-		currentHoneydewCount+= newHoneydew;
+		currentHoneydewCount += newHoneydew;
 		honeydewCollected += newHoneydew;
 	}
 
@@ -57,7 +63,7 @@ public abstract class Hive implements SpotAgent {
 	}
 
 	/*
-	 *  
+	 * 
 	 */
 	public void mournTheLoss() {
 		deadBees++;
